@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="horizontal"
+    android:background="@drawable/round_shape">
+
+    <TextView
+        android:id="@+id/tasbih_count"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:text="999999"
+        android:textColor="@color/teal_700"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:background="@color/teal_900"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:padding="8dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:hint="Ештеңе жазылмады..."
+        android:textColorHint="@color/hint_teal"
+        android:textSize="25sp"
+        android:textColor="@color/teal_900"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_gravity="center|start"
+        android:gravity="center|start"/>
+
+</LinearLayout>
