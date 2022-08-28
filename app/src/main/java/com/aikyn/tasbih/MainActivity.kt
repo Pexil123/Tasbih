@@ -2,10 +2,12 @@ package com.aikyn.tasbih
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
@@ -16,9 +18,11 @@ import kotlin.properties.Delegates
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var menuPref by Delegates.notNull<SharedPreferences>()
+    private var pref by Delegates.notNull<SharedPreferences>()
     private var count = 0
     private var labelText = ""
     private var position = 0
+    private var stateSwitchVibrator = false
     private var bannerIncreased = false
     private var ZERO_DP by Delegates.notNull<Int>()
     private val INCREASE_VALUE = 120
@@ -29,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         menuPref = getSharedPreferences("MENU", MODE_PRIVATE)
+        pref = getSharedPreferences("TABLE", MODE_PRIVATE)
+
+        stateSwitchVibrator = pref.getBoolean("stateSwitchVibrator", false)
+
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         count = intent.getStringExtra("count")!!.toInt()
         labelText = intent.getStringExtra("description")!!
@@ -99,6 +108,14 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 hideKeyBoard()
+            }
+
+            if (stateSwitchVibrator) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(40, VibrationEffect.DEFAULT_AMPLITUDE)) // New vibrate method for API Level 26 or higher
+                } else {
+                    vibrator.vibrate(40)
+                }
             }
 
         }

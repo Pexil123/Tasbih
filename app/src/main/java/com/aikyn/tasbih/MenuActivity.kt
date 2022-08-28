@@ -12,6 +12,7 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
     private var menuPref by Delegates.notNull<SharedPreferences>()
+    private var pref by Delegates.notNull<SharedPreferences>()
     private var arrayTasbihs = ArrayList<ListItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,23 @@ class MenuActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
         menuPref = getSharedPreferences("MENU", MODE_PRIVATE)
+        pref = getSharedPreferences("TABLE", MODE_PRIVATE)
 
+        if (pref.getBoolean("stateSwitchVibrator", false)) {
+            binding.switchVibrator.isChecked = pref.getBoolean("stateSwitchVibrator", false)
+        }
+
+        binding.switchVibrator.setOnCheckedChangeListener { _, b ->
+            saveStateSwitchVibrator(b)
+        }
+
+    }
+
+    private fun saveStateSwitchVibrator(b: Boolean) {
+        pref.edit().apply {
+            putBoolean("stateSwitchVibrator", b)
+            apply()
+        }
     }
 
     override fun onResume() {
