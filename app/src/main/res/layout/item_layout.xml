@@ -16,7 +16,8 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:background="@color/teal_900"/>
+        android:background="@drawable/round_shape"
+        android:backgroundTint="@color/teal_900"/>
 
     <TextView
         android:id="@+id/description"

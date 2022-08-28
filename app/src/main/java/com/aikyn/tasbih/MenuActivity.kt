@@ -51,7 +51,7 @@ class MenuActivity : AppCompatActivity() {
     fun updateState() {
         arrayTasbihs.clear()
 
-        for (i in 1..10) {
+        for (i in 1..20) {
             if (menuPref.getString("tasbih$i", "") != "") {
                 var string = menuPref.getString("tasbih$i", "")
 
